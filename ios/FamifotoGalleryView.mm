@@ -8,6 +8,7 @@
 
 #import "RCTFabricComponentsPlugins.h"
 #import "Utils.h"
+#import "react_native_famifoto_gallery-Swift.h"
 
 using namespace facebook::react;
 
@@ -19,23 +20,31 @@ using namespace facebook::react;
     UIView * _view;
 }
 
+
+
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
     return concreteComponentDescriptorProvider<FamifotoGalleryViewComponentDescriptor>();
 }
-
+RNEventBus *rnEventBus;
 - (instancetype)initWithFrame:(CGRect)frame
 {
-  if (self = [super initWithFrame:frame]) {
-    static const auto defaultProps = std::make_shared<const FamifotoGalleryViewProps>();
-    _props = defaultProps;
-
-    _view = [[UIView alloc] init];
-
-    self.contentView = _view;
-  }
-
-  return self;
+    if (self = [super initWithFrame:frame]) {
+        static const auto defaultProps = std::make_shared<const FamifotoGalleryViewProps>();
+        _props = defaultProps;
+        
+        _view = [[UIView alloc] init];
+        RNGlobalState *globalstate=[[RNGlobalState alloc] init];
+        [globalstate toggleSelectionMode];
+        //rnEventBus=[[RNEventBus alloc] init];
+        //[rnEventBus setViewWithUiView: _view];
+        
+        //const auto strongEventEmitter = *std::dynamic_pointer_cast<const FamifotoGalleryViewEventEmitter>(_eventEmitter);
+        //strongEventEmitter.onDoubleClick(<#OnDoubleClick value#>)
+        self.contentView = _view;
+    }
+    
+    return self;
 }
 
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps
@@ -45,11 +54,13 @@ using namespace facebook::react;
 
     if (oldViewProps.color != newViewProps.color) {
         NSString * colorToConvert = [[NSString alloc] initWithUTF8String: newViewProps.color.c_str()];
+        //[rnEventBus postEventWithJson: @"testing"];
         [_view setBackgroundColor: [Utils hexStringToColor:colorToConvert]];
     }
-
     [super updateProps:props oldProps:oldProps];
 }
+
+
 
 Class<RCTComponentViewProtocol> FamifotoGalleryViewCls(void)
 {

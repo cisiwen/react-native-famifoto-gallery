@@ -6,7 +6,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "pods": "pod-install --quiet"
+    "pods_old": "pod-install --quiet",
+    "pods":"bundle install && RCT_NEW_ARCH_ENABLED=1 bundle exec pod-install --quiet"
   },
   "dependencies": {
     "react": "18.2.0",

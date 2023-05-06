@@ -2,6 +2,7 @@
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
 #import "Utils.h"
+#import "react_native_famifoto_gallery-Swift.h"
 
 @interface FamifotoGalleryViewManager : RCTViewManager
 @end

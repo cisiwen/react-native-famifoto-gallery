@@ -1,12 +1,20 @@
 import * as React from 'react';
 
 import { StyleSheet, View } from 'react-native';
-import { FamifotoGalleryView } from 'react-native-famifoto-gallery';
+import { FamifotoGalleryView, multiply } from 'react-native-famifoto-gallery';
 
 export default function App() {
+  React.useEffect(() => {
+    (async()=>{
+      const result = await multiply(3, 7);
+      console.log('multiply', result);
+    })();
+  }, []);
   return (
     <View style={styles.container}>
-      <FamifotoGalleryView color="#32a852" style={styles.box} />
+      <FamifotoGalleryView onDoubleClick={(event)=>{
+        console.log(event);
+      }} color="#42a852" style={styles.box} />
     </View>
   );
 }
